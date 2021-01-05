@@ -1,25 +1,31 @@
 class Heart{
-    constructor(img, x, y, corX, corY){
-        this.size  = size || random(config.size.min, config.size.max);
-        this.speed = speed || random(config.speed.min, config.speed.max);
-        this.x   = x || random(-(this.size/2), w);
-        this.y   = y || h + config.size.max;
-        this.imgObj = this.drawHeart();
+    constructor(img, x, y, corX, corY, children){
+        this.img = img;
+        this.x   = x || random(-(img.width/2), w);
+        this.y   = y || h + img.height;
         this.corX = corX || 0;
         this.corY = corY || 0;
+        this.speed = this.setSpeed();
+        this.children = children || false;
     }
 
     
-    get draw(){
+    get image(){
         return {
-            img: this.imgObj,
+            img: this.img,
             x: this.x,
-            y: this.y,
+            y: this.y
         };
     }
     
     reposition(img){
-        
+        this.img = img;
+        this.y = h;
+        this.x = random(0, w - img.width);
+    }
+    
+    setSpeed(){
+        return random(config.speed.min, config.speed.max);
     }
     
     setPos(){
